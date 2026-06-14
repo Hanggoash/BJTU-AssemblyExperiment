@@ -35,7 +35,7 @@ matmul_asm_basic:
 
     mul w13, w11, w5
     add w13, w13, w10 //k*N + j
-    add x14, x7, w13, uxtw #2 //extend to 64 bits and multiply 4
+    add x14, x7, w13, uxtw #2 //extend to 64 bits and multipy 4
     ldr w16, [x14]
 
     mul w17, w15, w16
