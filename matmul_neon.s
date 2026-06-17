@@ -32,7 +32,7 @@ matmul_asm_neon:
 
     mov x17, x14 //cur_a := row_a
     mov w11, #0 //k
-    movi v31.4s, #0 //vec_acc := {0, 0, 0, 0}
+    movi v3.4s, #0 //vec_acc := {0, 0, 0, 0}
 
 .Lneon_vec:
     add w13, w11, #3 //check whether k + 3 < K
@@ -42,7 +42,7 @@ matmul_asm_neon:
     ld1 {v0.4s}, [x17] //load a[i][k : k + 3]
     ld1 {v1.4s}, [x16] //load bt[j][k : k + 3]
     mul v2.4s, v0.4s, v1.4s
-    add v31.4s, v31.4s, v2.4s //vec_acc += a_row * bt_row
+    add v3.4s, v3.4s, v2.4s //vec_acc += a_row * bt_row
 
     add x17, x17, #16 //advance 4 ints in a row
     add x16, x16, #16 //advance 4 ints in bt row
@@ -50,8 +50,8 @@ matmul_asm_neon:
     b .Lneon_vec
 
 .Lneon_tail:
-    addv s30, v31.4s //horizontal sum of vec_acc
-    fmov w12, s30 //accumulator := horizontal sum
+    addv s0, v3.4s //sum of vec_acc
+    fmov w12, s0 //accumulator := sum
 
     cmp w11, w4
     b.ge .Lneon_store
@@ -82,4 +82,3 @@ matmul_asm_neon:
 .Lneon_done:
     ret
 
-.size matmul_asm_neon, .-matmul_asm_neon

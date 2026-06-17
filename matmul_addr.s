@@ -60,4 +60,3 @@ matmul_asm_addr:
 .Laddr_done:
     ret
 
-.size matmul_asm_addr, .-matmul_asm_addr

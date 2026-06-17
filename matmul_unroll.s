@@ -115,4 +115,3 @@ matmul_asm_unroll:
 .Lunroll_done:
     ret
 
-.size matmul_asm_unroll, .-matmul_asm_unroll
